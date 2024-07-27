@@ -9,7 +9,7 @@ class CampaignIndex extends Component {
   }
 
   render() {
-    return <div>campaign index!</div>;
+    return <h1>campaign index!</h1>;
   }
 }
 
