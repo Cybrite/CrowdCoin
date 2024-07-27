@@ -2,6 +2,6 @@ import React from "react";
 
 export default function Home() {
   return(
-    <div>Hello solidity</div>
+    <div>This is campaign list page</div>
   );
 }
