@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { MenuMenu, MenuItem, Menu } from "semantic-ui-react";
+import { Link } from "../routes";
 
 export default class Navbar extends Component {
   state = {};
@@ -8,32 +9,21 @@ export default class Navbar extends Component {
 
   render() {
     const { activeItem } = this.state;
-    
+
     return (
       <Menu style={{ marginTop: "10px" }}>
-        <MenuItem
-          name="browse"
-          active={activeItem === "browse"}
-          onClick={this.handleItemClick}
-        >
+        <Link route="/" className="item">
           CrowdCoin
-        </MenuItem>
+        </Link>
 
         <MenuMenu position="right">
-          <MenuItem
-            name="browse"
-            active={activeItem === "browse"}
-            onClick={this.handleItemClick}
-          >
+          <Link route="/" className="item">
             Campaigns
-          </MenuItem>
-          <MenuItem
-            name="browse"
-            active={activeItem === "browse"}
-            onClick={this.handleItemClick}
-          >
+          </Link>
+
+          <Link route="/campaigns/new" className="item">
             <b>+</b>
-          </MenuItem>
+          </Link>
         </MenuMenu>
       </Menu>
     );
