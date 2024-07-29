@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 import "semantic-ui-css/semantic.min.css";
-import {
-  Form,
-  Button,
-  FormField,
-  Input,
-  Message,
-  MessageHeader,
-} from "semantic-ui-react";
+import { Form, Button, FormField, Input, Message } from "semantic-ui-react";
 import Layout from "../../components/Layout";
 import instance from "../../ethereum/factory";
 import web3 from "../../ethereum/web3";
@@ -16,10 +9,13 @@ class CampaignNew extends Component {
   state = {
     minimumContribution: "",
     errorMessage: "",
+    loading: false,
   };
 
   onSubmit = async (event) => {
     event.preventDefault();
+
+    this.setState({ loading: true, errorMessage: "" });
 
     try {
       const accounts = await web3.eth.getAccounts();
@@ -32,6 +28,8 @@ class CampaignNew extends Component {
     } catch (error) {
       this.setState({ errorMessage: error.message });
     }
+
+    this.setState({ loading: false });
   };
 
   render() {
@@ -58,7 +56,9 @@ class CampaignNew extends Component {
               content={this.state.errorMessage}
             />
           ) : null}
-          <Button primary>Create!</Button>
+          <Button primary loading={this.state.loading}>
+            Create!
+          </Button>
         </Form>
       </Layout>
     );
