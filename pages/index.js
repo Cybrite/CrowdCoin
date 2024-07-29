@@ -16,7 +16,7 @@ class CampaignIndex extends Component {
     const items = this.props.campaigns.map((address) => {
       return {
         header: address,
-        description: <a>View Campaign</a>,
+        description: <Link route={`/campaigns/${address}`}>View Campaign</Link>,
         fluid: true,
       };
     });
