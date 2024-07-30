@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import Layout from "../../components/Layout";
 import aboutcampaign from "../../ethereum/Campaign";
-import { CardGroup, Grid, GridColumn, Button } from "semantic-ui-react";
+import {
+  CardGroup,
+  Grid,
+  GridColumn,
+  Button,
+  GridRow,
+} from "semantic-ui-react";
 import web3 from "../../ethereum/web3";
 import ContributeForm from "../../components/ContributeForm";
 import { Link } from "../../routes";
@@ -67,15 +73,21 @@ class CampaignShow extends Component {
       <Layout>
         <h3>Campaign Show</h3>
         <Grid>
-          <GridColumn width={10}>
-            {this.renderCards()}
-            <Link route={`/campaigns/${this.props.address}/requests`}>
-              <Button primary content="View all Requests" />
-            </Link>
-          </GridColumn>
-          <GridColumn width={6}>
-            <ContributeForm address={this.props.address} />
-          </GridColumn>
+          <GridRow>
+            <GridColumn width={10}>{this.renderCards()}</GridColumn>
+
+            <GridColumn width={6}>
+              <ContributeForm address={this.props.address} />
+            </GridColumn>
+          </GridRow>
+
+          <GridRow>
+            <GridColumn>
+              <Link route={`/campaigns/${this.props.address}/requests`}>
+                <Button primary content="View all Requests" />
+              </Link>
+            </GridColumn>
+          </GridRow>
         </Grid>
       </Layout>
     );
