@@ -52,7 +52,7 @@ class ContributeForm extends Component {
         </Button>
 
         {this.state.errorMessage ? (
-          <Message error header="Oops!" content={this.state.errorMessage} />
+          <Message negative header="Oops!" content={this.state.errorMessage} />
         ) : null}
       </Form>
     );
