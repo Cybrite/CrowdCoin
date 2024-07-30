@@ -10,6 +10,8 @@ class RequestNew extends Component {
     value: "",
     description: "",
     recipient: "",
+    loading: false,
+    errorMessage: "",
   };
 
   static async getInitialProps(props) {
@@ -18,11 +20,35 @@ class RequestNew extends Component {
     return { address };
   }
 
+  onSubmit = async (event) => {
+    event.preventDefault();
+
+    const campaign = aboutcampaign(this.props.address);
+    const { description, value, recipient } = this.state;
+
+    try {
+      this.setState({ loading: true, errorMessage: "" });
+      const accounts = await web3.eth.getAccounts();
+
+      await campaign.methods
+        .createRequest(description, web3.utils.toWei(value, "ether"), recipient)
+        .send({
+          from: accounts[0],
+        });
+
+      Router.pushRoute(`/campaigns/${this.props.address}/requests`);
+    } catch (err) {
+      this.setState({ errorMessage: err.message });
+    }
+
+    this.setState({ loading: false });
+  };
+
   render() {
     return (
       <Layout>
         <h3>Create a Request</h3>
-        <Form>
+        <Form onSubmit={this.onSubmit}>
           <FormField>
             <label>description</label>
             <Input
@@ -35,6 +61,8 @@ class RequestNew extends Component {
             <Input
               value={this.state.value}
               onChange={(e) => this.setState({ value: e.target.value })}
+              label="ether"
+              labelPosition="right"
             />
           </FormField>
           <FormField>
@@ -45,7 +73,14 @@ class RequestNew extends Component {
             />
           </FormField>
 
-          <Button primary content="Create!" />
+          <Button primary content="Create!" loading={this.state.loading} />
+          {this.state.errorMessage ? (
+            <Message
+              negative
+              header="Oops!"
+              content={this.state.errorMessage}
+            />
+          ) : null}
         </Form>
       </Layout>
     );
