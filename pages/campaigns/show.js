@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Layout from "../../components/Layout";
 import aboutcampaign from "../../ethereum/Campaign";
+import { CardGroup } from "semantic-ui-react";
 
 class CampaignShow extends Component {
   static async getInitialProps(props) {
@@ -17,12 +18,25 @@ class CampaignShow extends Component {
     };
   }
 
+  renderCards() {
+    const { balance, manager, minimumContribution, requests, contributors } =
+      this.props;
+
+    const items = [
+      {
+        header: manager,
+        meta: "Address of manager",
+        description:
+          "The manager Created this campaign and can create requests to withdraw money",
+        style: { overflowWrap: "break-word" },
+      },
+    ];
+
+    return <CardGroup items={items} />;
+  }
+
   render() {
-    return (
-      <Layout>
-        <h2>Show</h2>
-      </Layout>
-    );
+    return <Layout>{this.renderCards()}</Layout>;
   }
 }
 
