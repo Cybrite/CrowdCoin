@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Button } from "semantic-ui-react";
+import {
+  Button,
+  Table,
+  TableHeader,
+  TableHeaderCell,
+  TableRow,
+} from "semantic-ui-react";
 import { Link } from "../../../routes";
 import Layout from "../../../components/Layout";
 import aboutcampaign from "../../../ethereum/Campaign";
@@ -18,6 +24,8 @@ class RequestIndex extends Component {
         })
     );
 
+    console.log(requests);
+
     return { address, requests, requestCount };
   }
   render() {
@@ -27,6 +35,20 @@ class RequestIndex extends Component {
         <Link route={`/campaigns/${this.props.address}/requests/new`}>
           <Button primary content="Add Request" />
         </Link>
+
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHeaderCell>ID</TableHeaderCell>
+              <TableHeaderCell>Description</TableHeaderCell>
+              <TableHeaderCell>Amount</TableHeaderCell>
+              <TableHeaderCell>Recipient</TableHeaderCell>
+              <TableHeaderCell>Approval Count</TableHeaderCell>
+              <TableHeaderCell>Aprrove</TableHeaderCell>
+              <TableHeaderCell>Finalize</TableHeaderCell>
+            </TableRow>
+          </TableHeader>
+        </Table>
       </Layout>
     );
   }
